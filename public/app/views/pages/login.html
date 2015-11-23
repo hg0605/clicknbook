@@ -1,0 +1,7 @@
+<div ng-controller="MainController as login">
+	<form method="post" ng-submit="login.dologin()">
+		Username :<input type="text" name="username" ng-model="login.loginData.username"><br/>
+		Password :<input type="password" name="password" ng-model="login.loginData.password">
+		<button type="submit">Login</button>
+	</form>
+</div>

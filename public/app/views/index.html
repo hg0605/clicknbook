@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html ng-app="Myapp">
+<head>
+		<base href="/">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Click 'n' Book</title>
+		<link rel="stylesheet" href="app/views/css/bigvideo.css" />
+		<link rel="stylesheet" href="app/views/css/style.css" type="text/css" />
+		<link rel="stylesheet" href="app/views/css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="app/views/css/bootstrap.min.css" type="text/css" />
+		<link rel="stylesheet" href="app/views/css/bootstrap-theme.css" type="text/css" />
+		<link rel="stylesheet" href="app/views/css/bootstrap-theme.min.css" type="text/css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-route.js"></script>
+		<script type="text/javascript" src="app/services/authservice.js"></script>
+		<script type="text/javascript" src="app/services/user.js"></script>
+		<script type="text/javascript" src="app/services/harsh.js"></script>
+		<script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
+		<script type="text/javascript" src="app/controllers/userCtrl.js"></script>
+		<script type="text/javascript" src="app/app.routes.js"></script>
+		<script type="text/javascript" src="app/app.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Allerta' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+		<link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+		<link rel='stylesheet prefetch' href='http://mynameismatthieu.com/WOW/css/libs/animate.css'>
+		<style>
+		.pac-container 
+		{
+		    z-index: 120000000 !important;
+		}
+		.gm-style
+		{
+		    z-index: 1200000000000 !important;	
+		}
+		#background-wrap
+		{
+			position:fixed;
+			width:100%;
+			height:100%;
+			top:0;
+			left:0;
+			z-index:-1000;
+			overflow:hidden;
+		}
+		#bgvid
+		{
+			position:absolute;
+			top:0;
+			left:0;
+			min-height:100%;
+			min-width:100%
+		}
+		</style>
+</head>
+<body ng-controller="MainController as main" >
+
+<header id="header1" style="position:fixed; left:0px; top:0px;">
+			<div class="container">
+				<div class="logo" onclick="scroll_top();"><a>Click 'n' Book</a></div>
+				<div class="nav1">
+					<ul>
+						<li ng-if="main.loggedin"><a href="#"> Hello {{ main.user.name }}</a></li>
+	                    <li ng-if="main.loggedin"><a href="#" ng-click="main.dologout()">Logout</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#login_modal" ><a> <i class="fa fa-user"></i> LogIn</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#signup_modal" ><a> <i class="fa fa-sign-in"></i> SignUp</a></li>
+					</ul>
+				</div>
+			<br>
+			<div class="nav2">
+				<ul>
+					<li onclick="scroll_about();"><a>About us</a></li>
+					<li onclick="scroll_service();"><a>Our services</a></li>
+					<li onclick="scroll_how();"><a>how we work</a></li>
+					<li onclick="scroll_team();"><a>Our team</a></li>
+				</ul>
+			</div>
+			</div>
+		</header>		
+
+<header id="header2" style="position:fixed; left:0px; top:0px;">
+			<div class="container">
+				<div class="logo" onclick="scroll_top();"><a>Click 'n' Book</a></div>
+				<div class="nav1">
+					<ul>
+						<li onclick="scroll_about();"><a>About us</a></li>
+					<li onclick="scroll_service();"><a>Our services</a></li>
+					<li onclick="scroll_how();"><a>how we work</a></li>
+					<li onclick="scroll_team();"><a>Our team</a></li>
+						<li ng-if="main.loggedin"><a href="#"> Hello {{ main.user.name }}</a></li>
+	                    <li ng-if="main.loggedin"><a href="#" ng-click="main.dologout()">Logout</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#login_modal" ><a> <i class="fa fa-user"></i> LogIn</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#signup_modal" ><a> <i class="fa fa-sign-in"></i> SignUp</a></li>
+					</ul>
+				</div>
+			</div>
+		</header>		
+
+
+		<main><div ng-view></div></main>		
+		
+		<section id="footer">
+		<div class="container">
+			<div class="col-md-4" style="text-align:left;">
+				<p style="font-size:1.5em;">SIGN UP FOR NEWSLETTER</p>
+				<br>
+				<input type="email" name="email" placeholder="Enter your email "/>&nbsp;&nbsp;<button style="color:black;">Subscribe</button>
+			</div>
+			<div class="col-md-4" style="border-left:1px dashed white; border-right:1px dashed white;">
+				<p>CONTACT US <br/>
+					CALL US : +91-9999115623<br/>
+					EMAIL US : mailus@jaypeefix.in
+				</p>
+			</div>
+			<div class="col-md-4">
+				<p>SOCIAL MEDIA<br/>
+					<a href="#"><img src="app/views/images/fb.png" width="36"/></a>
+					<a href="#"><img src="app/views/images/tw.png" width="40"/></a>
+					<a href="#"><img src="app/views/images/ln.png" width="40"/></a>
+				</p>
+			</div>
+		</div>
+		<div id="copyright"> 
+			Copyright &copy; 2015 JaypeeFix<br>
+			Designed & developed by <a onclick="scroll_team();">JaypeeFix Team</a>
+		</div>
+	</section>
+		
+		
+		<!-- LOGIN  Modal -->
+		<div class="modal fade" id="login_modal" style="z-index:300000;padding-top:100px;" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content" ng-controller="MainController as login">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<center><h2 class="modal-title">LOGIN</h2></center>
+					</div>
+					<form role="form" ng-submit="login.dologin()" method="post">
+					<div class="modal-body">
+						<p>
+							
+								<div class="form-group">
+									<label for="email">Username:</label>
+									<input type="text" class="form-control" ng-model="login.loginData.username"  placeholder="Enter username" required />
+								</div>
+								<div class="form-group">
+									<label for="pwd">Password:</label>
+									<input type="password" class="form-control" ng-model="login.loginData.password"  placeholder="Enter password" required />
+								</div>
+								<p>
+								</p>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+					<div class="col-md-6">
+								<input type="submit" style="width:100%; background:black; color:white;" class="btn btn-default">
+								</div>
+								<div class="col-md-6"><input type="reset" style="width:100%; background:black; color:white;" class="btn btn-default">
+							</div>
+				
+					</div>
+				   </form>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+	
+		<!-- LOGIN Modal -->
+
+<!-- SIGNUP Modal -->
+		<div class="modal fade"  id="signup_modal" style="z-index:30000;padding-top:100px;" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content" ng-controller="UserCreateController as user">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<center><h2 class="modal-title">SIGNUP</h2></center>
+					</div>
+					
+							<form role="form"  ng-submit="user.signupUser()" method="post">
+					
+					<div class="modal-body">
+						<p>
+								<div class="form-group">
+									<label for="name">Name:</label>
+									<input type="text" class="form-control" ng-model="user.userData.name"  placeholder="Enter name" required />
+								</div>
+                                
+                                <div class="form-group">
+									<label for="email">Email:</label>
+									<input type="email" class="form-control" ng-model="user.userData.email"  placeholder="Enter email" required />
+								</div>
+                               
+
+                               <div class="form-group">
+									<label for="contact">Contact No:</label>
+									<input type="text" class="form-control" ng-model="user.userData.contact"  placeholder="Enter contact no" required />
+								</div>
+                               
+                               <p><b>Gender:</b></p>
+
+                               <div class="radio">
+                               	<label><input type="radio" name="gender" ng-model="user.userData.gender" value="male" required >Male</label>
+                               </div>
+                               <div class="radio">
+                               	<label><input type="radio" name="gender" ng-model="user.userData.gender" value="female" required >Female</label>
+                               </div>
+
+                               <div class="form-group">
+                               	<label for="username">Username:</label>
+                               	<input type="text" class="form-control" ng-model="user.userData.username"  placeholder="Enter username" required />
+                               </div>
+
+                               <div class="form-group move-down">
+                               	<label for="Autocomplete">Location</label>
+                               <input id="pac-input" class="form-control" type="text" ng-model="user.userData.location" placeholder="Enter a location" required/>
+		                       </div>
+                               
+                              <div id="map" style="height:400px; z-index:100000;"></div>
+	
+
+                               <br>
+                                
+                                <div class="form-group">
+									<input type="hidden" class="form-control" id="loc_lng" ng-model="user.userData.longitude" value=""  required />
+								</div>
+
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="loc_lat" ng-model="user.userData.latitude" value="" required />
+								</div>
+
+                               
+								<div class="form-group">
+									<label for="address">Address:</label>
+									<input type="text" class="form-control" ng-model="user.userData.address"  placeholder="Enter addresss" required />
+								</div>
+
+
+								
+								<div class="form-group">
+									<label for="pwd">Password:</label>
+									<input type="password" class="form-control" ng-model="user.userData.password"  placeholder="Enter password" required />
+								</div>
+
+								<div class="checkbox">
+   								<label><input type="checkbox" required >Accept terms & conditions </label>
+								</div>
+
+								
+								
+						</p>
+					</div>
+					<div class="modal-footer">
+						<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+					<div class="col-md-6">
+								<input type="submit" style="width:100%; background:black; color:white;" class="btn btn-default">
+								</div>
+								<div class="col-md-6"><input type="reset" style="width:100%; background:black; color:white;" class="btn btn-default">
+							</div>
+				
+					</div>
+				</form>
+	
+				</div>
+				
+			</div>
+		</div>
+					
+		
+		<!-- SIGNUP Modal -->
+		
+
+<script>
+
+
+
+
+			function initMap() {
+				var map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: -33.8688, lng: 151.2195},
+					zoom: 13
+				});
+				var input = /** @type {!HTMLInputElement} */(
+					document.getElementById('pac-input'));
+					
+					 google.maps.event.trigger(map, 'resize');
+					var types = document.getElementById('type-selector');
+					//map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+					//map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+					
+					var autocomplete = new google.maps.places.Autocomplete(input);
+					autocomplete.bindTo('bounds', map);
+					
+					var infowindow = new google.maps.InfoWindow();
+					var marker = new google.maps.Marker({
+						map: map,
+						anchorPoint: new google.maps.Point(0, -29)
+					});
+					
+					autocomplete.addListener('place_changed', function() {
+						infowindow.close();
+						marker.setVisible(false);
+						var place = autocomplete.getPlace();
+						if (!place.geometry) {
+							window.alert("Autocomplete's returned place contains no geometry");
+							return;
+						}
+						
+						// If the place has a geometry, then present it on a map.
+						if (place.geometry.viewport) {
+							map.fitBounds(place.geometry.viewport);
+							} else {
+							
+							var placeLoc1 = String(place.geometry.location);
+					
+					placeLoc1 = placeLoc1.replace('(','');
+					placeLoc1 = placeLoc1.replace(')', '');
+					var myarr = placeLoc1.split(',');
+					
+						map.setCenter(place.geometry.location);
+							map.setZoom(15);  // Why 17? Because it looks good.
+						}
+						marker.setIcon(/** @type {google.maps.Icon} */({
+							url: place.icon,
+							size: new google.maps.Size(71, 71),
+							origin: new google.maps.Point(0, 0),
+							anchor: new google.maps.Point(17, 34),
+							scaledSize: new google.maps.Size(35, 35)
+						}));
+						marker.setPosition(place.geometry.location);
+						marker.setVisible(true);
+						
+						var address = '';
+						if (place.address_components) {
+							address = [
+							(place.address_components[0] && place.address_components[0].short_name || ''),
+							(place.address_components[1] && place.address_components[1].short_name || ''),
+							(place.address_components[2] && place.address_components[2].short_name || '')
+							].join(' ');
+						}
+						
+						infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+						infowindow.open(map, marker);
+						});
+						
+						// Sets a listener on a radio button to change the filter type on Places
+						// Autocomplete.
+						function setupClickListener(id, types) {
+							var radioButton = document.getElementById(id);
+							radioButton.addEventListener('click', function() {
+								autocomplete.setTypes(types);
+							});
+						}
+						
+						setupClickListener('changetype-all', []);
+						setupClickListener('changetype-address', ['address']);
+						setupClickListener('changetype-establishment', ['establishment']);
+						setupClickListener('changetype-geocode', ['geocode']);
+					}
+			</script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initMap">
+        </script>
+		<script src="app/views/js/index.js"></script>
+	    <script src="app/views/js/bootstrap.js"></script>
+		<script src="app/views/js/bootstrap.min.js"></script>
+		<script src="app/views/js/npm.js"></script>
+		<script src="app/views/js/script.js"></script>
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="app/views/js/angular_mainscript.js"></script> 
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script>
+			
+			
+			function scroll_about() 
+			{
+				$('body').animate({ scrollTop: ($("#about_us").offset().top)-100 }, 1200);
+			}
+			function scroll_service() 
+			{
+				$('body').animate({ scrollTop: ($("#our_services").offset().top)-100 }, 1200);
+			}
+			function scroll_how() 
+			{
+				$('body').animate({ scrollTop: ($("#how_it_works").offset().top)-100 }, 1200);
+			}
+			function scroll_team() 
+			{
+				$('body').animate({ scrollTop: ($("#our_team").offset().top)-100 }, 1200);
+			}
+			function scroll_top()
+			{
+				$('body').animate({ scrollTop: ($("#search_form").offset().top)-100 }, 1200);
+			}
+
+			$(window).scroll(function(){
+    var myElt       = $('#about_us');      // whatever element you want to check
+var window1      = $(window);            // the window jQuery element
+var myTop        = myElt.offset().top;  // the top (y) location of your element
+var windowTop    = window1.scrollTop();           // the top of the window
+var windowBottom = windowTop + window1.height();  // the bottom of the window
+
+if (myTop < windowTop+130) {
+  $('#header2').css({'visibility':'visible'});
+  $('#header1').css({'visibility':'hidden'});
+} else {
+
+  $('#header1').css({'visibility':'visible'});
+  $('#header2').css({'visibility':'hidden'});
+  
+  }
+
+});
+ </script>
+</body>
+</html>
