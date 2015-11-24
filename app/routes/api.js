@@ -131,9 +131,13 @@ if(err)
 }
 
 var bookid=booking.bid;
-var date=new Date(req.body.bookingdate);
+var now=new Date(req.body.bookingdate);
+console.log(now);
+var date = now.toUTCString();
 console.log(date);
-
+var bombay=date+(360000*5.5);
+var date1=new Date(bombay);
+console.log(date1);
 var booking=new Booking({
 paycode: req.body.paycode,
 merchantid: req.body.merchantid,
