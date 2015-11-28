@@ -9,11 +9,6 @@ function close_cat_data()
 	$('.category_data ul li').click(function(){
 		f=$(this).html();
 		document.getElementById('category').value=f;
-		
-		
-
-
-		
 	});
 	setTimeout(clear_cat, 100);
 }
@@ -25,16 +20,12 @@ function clear_loc()
 
 function open_dropdown(g)
 {
-	//var h=$(g).find("i").attr('class');
-	//alert(h);
 	var pos=$('.navigation').css('left');
 	pos=pos.replace("px", "");
-	//alert(pos);
 	if(pos>1100)
 	{
 		$('.navigation').animate({'left':'80%'}, 1000);
 		$(g).find("i").attr({'class':'fa fa-times'});
-		
 	}
 	else
 	{
@@ -64,8 +55,9 @@ function validateCategory()
 {
 	$('.category_data').css({'visibility':'visible'});
 	var cat=document.getElementById('category').value;
-	if(cat=='null')
+	if(cat=='')
 	{
+	
 	}
 	else
 	{
@@ -76,8 +68,8 @@ function ValidateLocation()
 {
 	$('.location_data').css({'visibility':'visible'});
 	var loc=document.getElementById('location').value;
-	
-	if(loc=='null')
+	//alert(loc);
+	if(loc=='')
 	{
 		
 	}
@@ -121,8 +113,18 @@ function showPosition(position)
 	var lat=position.coords.latitude;
 	var lon=position.coords.longitude;
 	name_city(lat,lon);
-	document.getElementById('loc_lat').value=lat;
-	document.getElementById('loc_lng').value=lon;
+	var e = document.getElementById("loc_lng");
+  e.value = lon;
+  var $e = angular.element(e);
+  $e.triggerHandler('input');
+  
+  var e1 = document.getElementById("loc_lat");
+  e1.value = lat;
+  var $e1 = angular.element(e1);
+  $e1.triggerHandler('input');					
+	//document.getElementById('loc_lat').value=lat;
+	//document.getElementById('loc_lng').value=lon;
+//alert(lat+','+lon);
 }
 
 function name_city(g1,g2)
@@ -141,7 +143,11 @@ function name_city(g1,g2)
 			if (results[0]) 
 			{
 				var add = String(results[0].formatted_address);
-				document.getElementById('loc_address').value = String(add);
+			//	document.getElementById('loc_address').value = String(add);
+				var e = document.getElementById("loc_address");
+  e.value = String(add);
+  var $e = angular.element(e);
+  $e.triggerHandler('input');					
 				document.getElementById('location').value=String(add);
 			}
 			else 

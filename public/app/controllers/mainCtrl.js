@@ -6,6 +6,7 @@ angular.module('mainCtrl',[])
 
 var vm=this;
 
+$scope.lng='';
 
 vm.loggedin=Auth.isloggedin();
 vm.merchantloggedin=Auth.ismerchantloggedin();
@@ -24,7 +25,22 @@ vm.merchant=data.data;
 });
 })
 
-$scope.counter = 0;
+$scope.counter = '';
+$scope.lat=0;
+vm.setallval=function(data){
+	console.log(data.lat);
+	$window.localStorage.setItem('lat' ,data.lat);
+	$window.localStorage.setItem('lng' ,data.lng);
+
+//$scope.lng=(vm.loginData.lng);
+//$scope.lat=(vm.loginData.lat);
+//alert()
+}
+
+vm.getGolu=function(){
+alert($window.localStorage.setItem('lat'));
+}
+
 $scope.changeloc = function(var1) {
         console.log(var1);
        goyal.location=var1;
@@ -33,20 +49,22 @@ $scope.change = function(var1) {
         console.log(var1);
         goyal.category=var1;
       };
+
 vm.getUserdetails=function(){
 
 
 return goyal;
 
 }
+
 vm.getdetails=function(){
 
 
 return $window.localStorage.getItem('tokenname');
 
 }
-vm.searchresult=function(){
 
+vm.searchresult=function(){
 
 $location.path('/userportal');
 

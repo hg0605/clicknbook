@@ -513,9 +513,10 @@ api.post('/usemap',function(req,res){
 
 var latitude=req.body.latitude;
 var longitude=req.body.longitude;
+var types=req.body.types;
 var https=require('https');
 
-var url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius=500&types=food&key=AIzaSyApjzh7tQbi5qeTnJxZ1HkxMF1qqcKnEbA"
+var url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius=500&types="+types+"&key=AIzaSyApjzh7tQbi5qeTnJxZ1HkxMF1qqcKnEbA"
 console.log(url);
 https.get(url,function(response){
 var body='';

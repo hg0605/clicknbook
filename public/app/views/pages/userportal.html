@@ -1,4 +1,17 @@
-<div ng-init="abc=result.getUserdetails()" ng-controller="MainController as result">
+
+<div ng-init="abc=result.getUserdetails();d=result.getGolu();" ng-controller="MainController as result">
 <br><br><br><br>
-<h1 >{{abc.category}}</h1>
+
+<div ng-if="abc.location=='Detect my location'">
+{{abc.category}}	Detect My Location
+{{d}}
+</div>
+
+<h1 ng-if="abc.location!='Detect my location'" id="heading1">{{abc.location}}{{abc.category}}</h1>
+<div id="error"></div>
+</div>
+<div >
+ 
+ <ng-map center="[28.6303974, 77.3721108]"></ng-map>
+
 </div>
