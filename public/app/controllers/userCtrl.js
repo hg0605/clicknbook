@@ -19,7 +19,7 @@ User.all()
 var vm=this;
 vm.signupUser= function(){
 	vm.message="";
-
+console.log("enter function");
 User.create(vm.userData)
 .then(function(response){
 vm.userData={};
