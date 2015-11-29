@@ -172,7 +172,7 @@ doc.bid=bookid;
 console.log(doc);
 doc.save(function(err) {
           if(err) {
-            res.json(500, {message: "Could not update Service. " +
+            res.json(500, {message: "Could not update Bid. " +
 err});
 }
 
@@ -268,6 +268,22 @@ res.json(booking);
 api.post('/servicemerchant',function(req,res)
 {
 Service.find({merchantid:req.body.merchantid},function(err,service){
+
+if(err)
+{
+
+	res.send(err);
+	return; 
+}
+
+res.json(service);
+});
+
+
+});
+api.post('/servicebyid',function(req,res)
+{
+Service.findById(req.body.serviceid,function(err,service){
 
 if(err)
 {
@@ -513,10 +529,9 @@ api.post('/usemap',function(req,res){
 
 var latitude=req.body.latitude;
 var longitude=req.body.longitude;
-var types=req.body.types;
 var https=require('https');
 
-var url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius=500&types="+types+"&key=AIzaSyApjzh7tQbi5qeTnJxZ1HkxMF1qqcKnEbA"
+var url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius=500&types=food&key=AIzaSyApjzh7tQbi5qeTnJxZ1HkxMF1qqcKnEbA"
 console.log(url);
 https.get(url,function(response){
 var body='';
@@ -623,12 +638,28 @@ Merchant.findOne({
 
 console.log("Somebody just came to our app");
 var token=req.body.token || req.param('token') || req.headers['x-access-token'];
-
+var mertoken=req.body.mertoken || req.param('mertoken') || req.headers['x-access-mertoken'];
 if(token){
 	jsonwebtoken.verify(token,secretkey,function(err,decoded){
 
 		if(err){
 			res.status(403).send({success:false,message:"Failed to authenticate user"});
+
+		}
+		else
+		{
+			req.decoded=decoded;
+		next();
+		}
+
+	});
+
+}
+else if(mertoken){
+	jsonwebtoken.verify(mertoken,secretkey,function(err,decoded){
+
+		if(err){
+			res.status(403).send({success:false,message:"Failed to authenticate merchant"});
 
 		}
 		else

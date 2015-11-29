@@ -1,0 +1,238 @@
+body{
+	background:#c8c8c8;
+}
+
+header
+{
+	z-index:9999;
+	width:100%;
+	
+}
+
+header .top
+{
+	width:100%;	
+	background:transparent;
+	padding-bottom:1px;
+	padding-top:1px;
+}
+
+header .top .logo
+{
+	width:20%;
+	float:left;
+	font-weight:bold;
+	text-align:center;
+	padding:0.3em;
+	font-size:30px;
+	cursor:pointer;
+	font-family: 'Slabo 27px', serif;
+	background:#980000;
+}
+
+header .top .nav1 ul li a:link
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .nav1 ul li a:active
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .nav1 ul li a:hover
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .nav1 ul li a:visited
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .nav1 ul li:hover
+{
+	
+}
+
+
+header .top .nav2 ul li a:link
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .nav2 ul li a:active
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .nav2 ul li a:hover
+{
+	text-decoration:none;
+	color:white;
+	background:#980000;
+	padding:10px;
+}
+
+header .top .nav2 ul li a:visited
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .nav2 ul li:hover
+{
+	background:transparent;
+}
+
+header .top .nav1
+{
+	margin-top:-20px ;
+	float:right;
+	font-family: 'Play', sans-serif;
+	font-size:20px;
+	margin-right:100px;
+
+}
+
+header .top .nav2
+{
+	float:right;
+	font-family: 'Play', sans-serif;
+	font-size:25px;
+	background:#980000;
+	margin-top:100px;
+	margin-right:150px;
+}
+
+header .top .nav1 ul 
+{
+	list-style-type:none;
+	padding-left:0px;
+	background:#980000;
+
+}
+
+header .top .nav1 ul li
+	{
+		float:left;
+		padding:10px;
+		cursor:pointer;
+		margin-right:10px;
+		background:#980000;
+		text-transform:uppercase;
+	}
+
+header .top .nav2 ul li
+	{
+		float:left;
+		padding-left:13px;
+		padding-right:13px;
+		padding-bottom:13px;
+		padding-top:3px;
+		cursor:pointer;
+	}
+	
+	header .top .nav2 ul li a:hover
+	{
+		
+		color:white;
+	}
+header .top .nav2 ul 
+{
+	list-style-type:none;
+	padding-left:2px;
+}
+
+header .top .logo:hover
+{
+	width:20%;
+	float:left;
+	font-weight:bold;
+	text-align:center;
+	padding:0.3em;
+	font-size:30px;
+	color:#d36666;
+	text-decoration:none;
+}
+
+header .top .logo a:hover
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .logo a:link
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .logo a:active
+{
+	text-decoration:none;
+	color:white;
+}
+
+header .top .logo a:visited
+{
+	text-decoration:none;
+	color:white;
+}
+
+#footer
+{
+	background:black;
+	margin-top:900px;
+}
+
+
+#footer .container
+{
+	padding-top:40px;
+	padding-bottom:40px;
+	
+}
+#footer .container .col-md-4
+{
+	color:white;
+	text-align:center;
+}
+#footer #copyright
+{
+	background:black;	
+	text-align:center;
+	color:white;
+	padding-bottom:30px;
+}
+
+#footer input 
+{
+	color:black;
+	padding:0.3em;
+	font-size:1.3em;
+	border:none;
+	box-shadow:0px 0px 5px white;
+}
+#footer button
+{
+	padding:0.3em;
+	font-size:1.3em;
+	border-radius:2px;
+	border:none;
+	
+
+}
+
+
+#footer a
+{
+	cursor:pointer;
+	
+}

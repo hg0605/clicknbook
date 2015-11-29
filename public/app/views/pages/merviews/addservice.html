@@ -1,0 +1,41 @@
+<div class="nav2">
+          <ul>
+            <li><a href="#/service">Adding Services</a></li>
+            <li><a href="#/viewservice">Manage Services</a></li>
+            
+          </ul>
+        </div>
+<div class="container" ng-controller="servicectrl">
+  <center><h2>Add Service</h2></center>
+  <form class="form-horizontal" ng-submit="createservice()" role="form">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Service Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="s_name" ng-model="serviceData.name" placeholder="Enter Service Name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Service Charge:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="s_charge" ng-model="serviceData.cost" placeholder="Enter Service Charge in INR" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Service Start Time:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="s_time" ng-model="serviceData.starttime" placeholder="Enter Start Time" />
+      </div>
+    </div>
+      <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Service End Time:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="s_time" ng-model="serviceData.endtime" placeholder="Enter End Time" />
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">ADD</button>
+      </div>
+    </div>
+  </form>
+</div>
