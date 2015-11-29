@@ -1,4 +1,4 @@
-angular.module('Myapp',['appRoutes','mainCtrl','authservice','userCtrl','userService','harsh'])
+angular.module('Myapp',['appRoutes','mainCtrl','authservice','userCtrl','userService','harsh','ngMap'])
 
 
 .config(function($httpProvider){
