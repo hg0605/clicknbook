@@ -1,3 +1,62 @@
+function edit_profile()
+{
+
+$('.pages').hide();
+$('#edit_profile').show();
+
+}
+
+
+function fuck(g1,g2,g3,g4)
+{
+	var mapOptions = {
+        zoom: 12,
+        center: new google.maps.LatLng(g1,g2),
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    }
+
+    var map = new google.maps.Map(document.getElementById('map1'), mapOptions);
+    
+    
+    var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(g1,g2),
+       		animation:google.maps.Animation.BOUNCE
+			
+        });
+        marker.setMap(map);
+  
+  var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(g3,g4),
+        });
+        marker.setMap(map);
+
+         var start = new new google.maps.LatLng(g1,g2);
+    var end = new new google.maps.LatLng(g3,g4);
+
+
+				var request = {
+					origin : start,
+					destination : end,
+					travelMode : google.maps.TravelMode.DRIVING
+				};
+				var directionsService = new google.maps.DirectionsService(); 
+				directionsService.route(request, function(response, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+						directionsDisplay.setDirections(response);
+					}
+				});
+				var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
+				directionsDisplay.setMap(map); // map should be already initialized.
+				
+
+			}
+
+
+function bookings()
+{
+$('.pages').hide();
+$('#bookings').show();
+}
 
 function clear_cat()
 {

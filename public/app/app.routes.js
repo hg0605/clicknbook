@@ -25,6 +25,10 @@ angular.module('appRoutes',['ngRoute'])
 
 		templateUrl:'app/views/pages/userportal.html'
 	})
+.when('/profile',{
+
+		templateUrl:'app/views/pages/profile.html'
+	})
 $locationProvider.html5Mode(true);
 
 

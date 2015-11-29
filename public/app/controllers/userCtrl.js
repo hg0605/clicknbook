@@ -24,8 +24,12 @@ User.create(vm.userData)
 .then(function(response){
 vm.userData={};
 vm.message=response.data.message;
-$window.localStorage.setItem('token',response.data.token);
-$location.path('/');
+console.log(response);
+$('#signup_modal').modal('toggle');
+if(response.data.token)
+{$window.localStorage.setItem('token',response.data.token);
+}
+$location.path('/home');
 })
 }
 })

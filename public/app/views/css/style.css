@@ -36,7 +36,6 @@ header .container .logo
 	background:#980000;
 }
 
-
 header .container .nav1
 {
 	float:right;
@@ -220,7 +219,6 @@ header .container .logo a:visited
 .main_body 
 {
 	padding-top:300px;
-	
 }
 
 .main_body .container .col-md-4
@@ -744,7 +742,7 @@ background: white;
 #results .container #results_box .col-md-3
 {
 	text-align:center;
-	*background:#f2b5b5;
+	background:#f2b5b5;
 	padding-top:20px;
 	padding-bottom:28px;
 	
@@ -850,4 +848,31 @@ background: white;
     left: 0px;
     width: 100%;
     height: 100%;
-  }
+}
+
+#profile .button{
+border:none;
+width:auto;
+padding:15px;
+font-size: 20px;
+background: #980000;
+color:white;
+border-top-left-radius:5px;
+border-top-right-radius:5px;
+}
+
+#profile .profile_panel
+{
+padding: 20px;
+	background:white;
+}
+
+.pages
+{
+	display: none;
+}
+
+#edit_profile
+{
+	display: block;
+}

@@ -12,12 +12,9 @@
 		<link rel="stylesheet" href="app/views/css/bootstrap-theme.css" type="text/css" />
 		<link rel="stylesheet" href="app/views/css/bootstrap-theme.min.css" type="text/css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js">
+       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-route.js"></script>
 		</script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-route.js">
-		</script>
-		<script src="http://maps.google.com/maps/api/js?libraries=placeses,visualization,drawing,geometry,places"></script>
-        <script src="http://code.angularjs.org/1.3.15/angular.js"></script>
         <script src="app/views/js/angular_map.js"></script>
 		<script type="text/javascript" src="app/services/authservice.js"></script>
 		<script type="text/javascript" src="app/services/user.js"></script>
@@ -31,7 +28,6 @@
 		<link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-		<link rel='stylesheet prefetch' href='http://mynameismatthieu.com/WOW/css/libs/animate.css'>
 		<style>
 		.pac-container 
 		{
@@ -65,10 +61,15 @@
 
 <header id="header1" style="position:fixed; left:0px; top:0px;">
 			<div class="container">
-				<div class="logo" onclick="scroll_top();"><a>Click 'n' Book</a></div>
+				<div class="logo" ><a href="/">Click 'n' Book</a></div>
 				<div class="nav1">
 					<ul>
-						<li ng-if="main.loggedin"><a href="#"> Hello {{ main.user.name }}</a></li>
+						<li id="welcome_tab" ng-if="main.loggedin" onmouseleave="close_drop();" onmouseenter="open_drop();" ><a href="#"> Welcome {{ main.user.name }}</a><br></li>
+<ul id="dropdown" style="display:none; position:fixed; width:168px; left:74.1%; top:7.5%;">
+<li><a href="#" ng-click="main.up_profile()">View Profile</a></li>
+</ul>
+
+						
 	                    <li ng-if="main.loggedin"><a href="#" ng-click="main.dologout()">Logout</a></li>
 						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#login_modal" ><a> <i class="fa fa-user"></i> LogIn</a></li>
 						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#signup_modal" ><a> <i class="fa fa-sign-in"></i> SignUp</a></li>
@@ -95,7 +96,7 @@
 					<li onclick="scroll_service();"><a>Our services</a></li>
 					<li onclick="scroll_how();"><a>how we work</a></li>
 					<li onclick="scroll_team();"><a>Our team</a></li>
-						<li ng-if="main.loggedin"><a href="#"> Hello {{ main.user.name }}</a></li>
+						<li id="welcome_tab" ng-if="main.loggedin" onmouseleave="close_drop();" onmouseenter="open_drop();" ><a href="#">Welcome {{ main.user.name }}</a></li>
 	                    <li ng-if="main.loggedin"><a href="#" ng-click="main.dologout()">Logout</a></li>
 						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#login_modal" ><a> <i class="fa fa-user"></i> LogIn</a></li>
 						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#signup_modal" ><a> <i class="fa fa-sign-in"></i> SignUp</a></li>
@@ -116,8 +117,8 @@
 			</div>
 			<div class="col-md-4" style="border-left:1px dashed white; border-right:1px dashed white;">
 				<p>CONTACT US <br/>
-					CALL US : +91-9999115623<br/>
-					EMAIL US : mailus@jaypeefix.in
+					CALL US : +91-9643080417<br/>
+					EMAIL US : mailus@clicknbook.in
 				</p>
 			</div>
 			<div class="col-md-4">
@@ -129,8 +130,8 @@
 			</div>
 		</div>
 		<div id="copyright"> 
-			Copyright &copy; 2015 JaypeeFix<br>
-			Designed & developed by <a onclick="scroll_team();">JaypeeFix Team</a>
+			Copyright &copy; 2015 Click'n'book<br>
+			Designed & developed by <a onclick="scroll_team();">Click'n'book Team</a>
 		</div>
 	</section>
 		
@@ -225,7 +226,7 @@
 
                                <div class="form-group move-down">
                                	<label for="Autocomplete">Location</label>
-                               <input id="pac-input" class="form-control" type="text" ng-model="user.userData.location" placeholder="Enter a location" required/>
+                               <input id="pac-input" class="form-control" type="text" ng-model="user.userData.location1" placeholder="Enter a location" required/>
 		                       </div>
                                
                               <div id="map" style="height:400px; z-index:100000;"></div>
@@ -234,11 +235,11 @@
                                <br>
                                 
                                 <div class="form-group">
-									<input type="hidden" class="form-control" id="loc_lng" ng-model="user.userData.longitude" value=""  required />
+									<input type="text" style="display:none;" class="form-control" id="loc_lng1" ng-model="user.userData.longitude"    required />
 								</div>
 
 								<div class="form-group">
-									<input type="hidden" class="form-control" id="loc_lat" ng-model="user.userData.latitude" value="" required />
+									<input type="text" style="display:none;" class="form-control" id="loc_lat1" ng-model="user.userData.latitude"  required />
 								</div>
 
                                
@@ -283,12 +284,6 @@
 		
 <script>
 
-$(document).ready(function(){
-
-var t=document.getElementById('heading1').innerHTML;
-document.getElementById('error').innerHTML=t;
-
-});
 			function initMap() {
 				var map = new google.maps.Map(document.getElementById('map'), {
 					center: {lat: -33.8688, lng: 151.2195},
@@ -314,6 +309,7 @@ document.getElementById('error').innerHTML=t;
 					autocomplete.addListener('place_changed', function() {
 						infowindow.close();
 						marker.setVisible(false);
+					//	alert('dixit');
 						var place = autocomplete.getPlace();
 						if (!place.geometry) {
 							window.alert("Autocomplete's returned place contains no geometry");
@@ -323,14 +319,32 @@ document.getElementById('error').innerHTML=t;
 						// If the place has a geometry, then present it on a map.
 						if (place.geometry.viewport) {
 							map.fitBounds(place.geometry.viewport);
-							} else {
-							
 							var placeLoc1 = String(place.geometry.location);
 					
 					placeLoc1 = placeLoc1.replace('(','');
 					placeLoc1 = placeLoc1.replace(')', '');
 					var myarr = placeLoc1.split(',');
 					
+						var e = document.getElementById("loc_lat1");
+						  e.value = myarr[0];
+						  var $e = angular.element(e);
+						  $e.triggerHandler('input');
+
+	var e = document.getElementById("loc_lng1");
+						  e.value = myarr[1];
+						  var $e = angular.element(e);
+						  $e.triggerHandler('input');
+						  /*	var e1 = document.getElementById("loc_lng1");
+						  e1.value = myarr[1];
+						  var $e1 = angular.element(e1);
+						  $e1.triggerHandler('input');
+  */
+  var e = document.getElementById("pac-input");
+						  var $e = angular.element(e);
+						  $e.triggerHandler('input');
+	
+							} else {
+							
 						map.setCenter(place.geometry.location);
 							map.setZoom(15);  // Why 17? Because it looks good.
 						}
@@ -359,29 +373,16 @@ document.getElementById('error').innerHTML=t;
 						
 						// Sets a listener on a radio button to change the filter type on Places
 						// Autocomplete.
-						function setupClickListener(id, types) {
-							var radioButton = document.getElementById(id);
-							radioButton.addEventListener('click', function() {
-								autocomplete.setTypes(types);
-							});
-						}
 						
-						setupClickListener('changetype-all', []);
-						setupClickListener('changetype-address', ['address']);
-						setupClickListener('changetype-establishment', ['establishment']);
-						setupClickListener('changetype-geocode', ['geocode']);
 					}
 			</script>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initMap">
+			<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap">
         </script>
-		<script src="app/views/js/index.js"></script>
-	    <script src="app/views/js/bootstrap.js"></script>
-		<script src="app/views/js/bootstrap.min.js"></script>
 		<script src="app/views/js/npm.js"></script>
 		<script src="app/views/js/script.js"></script>
-		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-        <script src="app/views/js/angular_mainscript.js"></script> 
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script>
 			
@@ -406,6 +407,19 @@ document.getElementById('error').innerHTML=t;
 			{
 				$('body').animate({ scrollTop: ($("#search_form").offset().top)-100 }, 1200);
 			}
+
+function open_drop()
+{
+	$('#dropdown').show();
+}
+
+function close_drop()
+{
+
+$('#dropdown').mouseleave(function(){
+		$('#dropdown').hide();
+});
+}
 
 			$(window).scroll(function(){
     var myElt       = $('#about_us');      // whatever element you want to check
