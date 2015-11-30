@@ -11,7 +11,8 @@ latitude: {type:String,required:true},
 longitude: {type:String,required:true},
 placename: {type:String,required:true},
 email:{type:String,required:true},
-gender:{type:String,required:true}
+gender:{type:String,required:true},
+wallet:{type:Number,required:true}
 });
 MerchantSchema.pre('save',function(next){
 

@@ -96,7 +96,7 @@ $scope.signupuser=function(){
 });
 
 
-myApp.controller("servicectrl",function($scope,$window,services,$location){
+myApp.controller("servicectrl",function($scope,$window,services,$location,$timeout){
 
 $scope.createservice=function(){
 $scope.message="";
@@ -106,6 +106,22 @@ services.createservice($scope.serviceData)
 	$scope.serviceData={};
 	$scope.message=response.data.message;
 	$location.path('/home');
+})
+
+
+}
+
+$scope.updateservice=function(){
+$scope.message="";
+services.updateservice($scope.serviceiddata,$scope.id)
+.then(function(response){
+
+	$scope.serviceiddata={};
+	console.log(response.data.message);
+	$scope.message=response.data.message;
+	$('#myModal').modal('toggle');
+	$location.path('/home');
+
 })
 
 
@@ -147,8 +163,14 @@ console.log("modal"+$scope.id);
 $scope.init=function(){
 
 $scope.viewservice();
-console.log("init called");
-console.log("harsh"+$scope.services);
+
+
+}
+$scope.appointinit=function(){
+
+
+$scope.viewappoint();
+
 }
 $scope.viewservice=function(){
 $scope.message="";
@@ -161,6 +183,112 @@ $scope.services=response.data;
 	//$scope.message=response.data.message;
 	
 })
+
+
+}
+
+$scope.customerdata=function(appoint)
+{
+var index = $scope.appoints.indexOf(appoint);
+$scope.bindstatus=appoint.appointment;
+console.log(index);	
+$scope.customerfetchdata(index,appoint.customerid);
+$scope.servicefetchdata(index,appoint.serviceid);
+}
+
+$scope.customer=[];
+$scope.customerfetchdata=function(index,id){
+$scope.message="";
+services.customerbyid(id)
+.then(function(response){
+
+	
+console.log(response.data);
+//$scope.customer=response.data;
+$scope.customer.splice(index, 0, response.data);
+//console.log("harsh"+$scope.customer);
+
+	//$scope.message=response.data.message;
+	
+})
+
+
+}
+$scope.servdata=[];
+
+$scope.servicefetchdata=function(index,id){
+services.servicebyid(id)
+.then(function(response){
+
+	
+console.log(response.data);
+$scope.servdata.splice(index, 0, response.data);
+
+	
+})	
+}
+$scope.viewappoint=function(){
+$scope.message="";
+services.viewappoint()
+.then(function(response){
+
+	
+console.log(response.data);
+$scope.appoints=response.data;
+
+
+	//$scope.message=response.data.message;
+	
+})
+
+
+}
+$scope.updatebookingstatus=function(index,status1){
+$scope.message="";
+console.log($scope.appoints[index]._id);
+services.updatebookingstatus($scope.appoints[index]._id,status1)
+.then(function(response){
+
+	
+console.log(response.data);
+
+  // anything you want can go here and will safely be run on the next digest.
+
+
+           $scope.appoints[index].appointment=status1;
+
+        });
+
+
+$location.path('/appoint');
+
+
+	//$scope.message=response.data.message;
+	
+
+
+
+}
+$scope.paycode=[];
+$scope.validatepaycode=function(id,index){
+alert($scope.paycode[index]);
+services.validatepaycode(id,$scope.paycode)
+.success(function(data){
+
+alert("Harsh"+data.paycode);
+
+if(data.paycode)
+{
+$scope.updatebookingstatus(index,"Completed");
+alert("paycode validated");	
+}
+
+
+
+
+});
+
+
 
 
 }

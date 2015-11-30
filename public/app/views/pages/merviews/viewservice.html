@@ -32,18 +32,22 @@
           <h4><span class="glyphicon glyphicon-lock"></span> Edit Service</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" ng-submit="printhello()">
+          <form role="form" ng-submit="updateservice()">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span>Service Name</label>
-              <input type="text" class="form-control"  value="{{serviceiddata.name}}">
+              <input type="text" class="form-control"  ng-model="serviceiddata.name" value="{{serviceiddata.name}}">
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-user"></span>Service Charge</label>
-              <input type="text" class="form-control"  value="{{serviceiddata.cost}}">
+              <input type="text" class="form-control"  ng-model="serviceiddata.cost" value="{{serviceiddata.cost}}">
             </div>
             <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-user"></span>Service Time</label>
-              <input type="text" class="form-control"  value="{{serviceiddata.starttime}}">
+              <label for="psw"><span class="glyphicon glyphicon-user"></span>Service Start Time</label>
+              <input type="text" class="form-control"  ng-model="serviceiddata.starttime" value="{{serviceiddata.starttime}}">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-user"></span>Service End Time</label>
+              <input type="text" class="form-control"  ng-model="serviceiddata.endtime" value="{{serviceiddata.endtime}}">
             </div>
               <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Update</button>
           </form>

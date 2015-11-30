@@ -147,7 +147,9 @@ bookingid: bookid,
 starttime: req.body.starttime,
 endtime: req.body.endtime,
 bookingdate:date,
-appointment:req.body.appointment
+appointment:req.body.appointment,
+address:req.body.address,
+cost:req.body.cost
 
 });
 
@@ -234,7 +236,7 @@ res.json(booking);
 
 
 });
-api.get('/bookingmerchant',function(req,res)
+api.post('/bookingmerchant',function(req,res)
 {
 Booking.find({merchantid:req.body.merchantid},function(err,booking){
 
@@ -250,7 +252,7 @@ res.json(booking);
 
 
 });
-api.get('/bookingcustomer',function(req,res)
+api.post('/bookingcustomer',function(req,res)
 {
 Booking.find({customerid:req.body.customerid},function(err,booking){
 
@@ -297,6 +299,22 @@ res.json(service);
 
 
 });
+api.post('/customerbyid',function(req,res)
+{
+User.findById(req.body.id,function(err,user){
+
+if(err)
+{
+
+	res.send(err);
+	return; 
+}
+
+res.json(user);
+});
+
+
+});
 api.post('/signupmerchant',function(req,res){
 
 var merchant=new Merchant({
@@ -308,7 +326,8 @@ latitude: req.body.latitude,
 longitude: req.body.longitude,
 placename: req.body.placename,
 email: req.body.email,
-gender: req.body.gender
+gender: req.body.gender,
+wallet:0
 
 });
 merchant.save(function(err){
@@ -384,6 +403,37 @@ err});
 }
 else {
         res.json(500, { message: "Could not update Service. " +
+err});
+    }
+});
+}
+else
+{
+	    res.json(500, { message: "ID is invalid. " });
+}
+});
+api.post('/updatebookingstatus',function(req,res){
+if(req.body.id){
+Booking.findById(req.body.id,function(err,doc){
+
+if(!err && doc)
+{
+doc.appointment=req.body.status;
+doc.save(function(err) {
+          if(!err) {
+            res.json(200, {message: "status updated: " +
+req.body.status});
+          } else {
+            res.json(500, {message: "Could not update status. " +
+err});
+}
+
+
+})
+
+}
+else {
+        res.json(500, { message: "Could not update status. " +
 err});
     }
 });
@@ -546,6 +596,41 @@ response.on('end',function(){
 });
 });
 
+api.post('/paycode',function(req,res){
+
+Booking.findOne({
+
+	_id:req.body.bookingid
+}).select('paycode').exec(function(err,book){
+
+if(err) throw err;
+else if(book){
+	if(req.body.paycode==book.paycode){
+res.json({
+				paycode:true,
+				message:"Paycode validated",
+				
+			});	
+
+
+	}
+	else{
+res.json({
+				paycode:false,
+				message:"Paycode NOT validated",
+				
+			});
+
+	}
+
+}
+
+
+});
+
+
+
+});
 api.post('/login',function(req,res){
 
 User.findOne({

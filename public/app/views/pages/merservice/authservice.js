@@ -7,8 +7,8 @@ angular.module('authservice',[])
 	var authfactory={};
 
 	authfactory.merchantlogin=function(username,password){
-console.log(username);
-console.log(password);
+//console.log(username);
+//console.log(password);
 	return $http.post('/api/loginmerchant',{
 	username:username,
 	password:password
@@ -113,6 +113,20 @@ endtime:serviceData.endtime
 	});
 }
 
+servicefactory.updateservice=function(serviceData,id){
+	var merid=$window.localStorage.getItem('merchantid');
+	return $http.post('/api/updateservice',{
+
+id:id,
+merchantid:merid,
+name:serviceData.name,
+cost:serviceData.cost,
+starttime:serviceData.starttime,
+endtime:serviceData.endtime
+
+
+	});
+}
 
 servicefactory.viewservice=function(){
 	var merid=$window.localStorage.getItem('merchantid');
@@ -124,12 +138,42 @@ merchantid:merid,
 
 	});
 }
+servicefactory.viewappoint=function(){
+	var merid=$window.localStorage.getItem('merchantid');
+//console.log(merid);
+	return $http.post('/api/bookingmerchant',{
+
+merchantid:merid
+
+
+	});
+}
+servicefactory.updatebookingstatus=function(id,status1){
+console.log(status1);
+return $http.post('/api/updatebookingstatus',{
+
+id:id,
+status:status1
+
+	});
+
+}
 servicefactory.servicebyid=function(id){
 	//var merid=$window.localStorage.getItem('merchantid');
 //console.log(merid);
 	return $http.post('/api/servicebyid',{
 
 serviceid:id
+
+
+	});
+}
+servicefactory.customerbyid=function(id){
+	//var merid=$window.localStorage.getItem('merchantid');
+//console.log(merid);
+	return $http.post('/api/customerbyid',{
+
+id:id
 
 
 	});
@@ -145,5 +189,18 @@ id:id
 
 	});
 }
+
+servicefactory.validatepaycode=function(bookingid,paycode){
+//console.log(username);
+//console.log(password);
+	return $http.post('/api/paycode',{
+	bookingid:bookingid,
+	paycode:paycode
+	}).success(function(data){
+
+	
+	return data;
+	})
+	}
 return servicefactory;
 });

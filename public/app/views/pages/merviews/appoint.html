@@ -1,19 +1,22 @@
 <center><h2>Your Appointments</h2></center>
-<div class="container" id="appointment">
-<div class="row">
+<div class="container" id="appointment" ng-controller="servicectrl" ng-init="appointinit()">
+<div class="row" ng-repeat="appoint in appoints" ng-init="customerdata(appoint)">
 <div class="col-md-6" style="">
 <div style="margin-left:15%;":>
-<b>Customer Name :</b> Dixit goyal<br><br>
-<b>Service Name :</b> Carpenter<br><br>
-<b>Time :</b> 1:00 pm to 3:00 pm  <br><br>
+<b>Customer Name :</b> {{customer[$index].name}}<br><br>
+<b>Service Name :</b> {{servdata[$index].name}}<br><br>
+<b>Time :</b> <span ng-show="appoint.starttime>12">{{appoint.starttime-12}}:00 pm</span><span ng-show="(appoint.starttime<12)">{{appoint.starttime}}:00 am</span><span ng-show="(appoint.starttime==12)">{{appoint.starttime}}:00 pm</span> to <span ng-show="appoint.endtime>12">{{appoint.endtime-12}}:00 pm</span><span ng-show="(appoint.endtime<12)">{{appoint.endtime}}:00 am</span><span ng-show="(appoint.endtime==12)">{{appoint.endtime}}:00 pm</span> <br><br>
+<b>Status :</b> <p ng-model="appoint.appointment">{{appoint.appointment}}</p></br><br>
 </div>
 </div>
 <div class="col-md-6" style="text-align:center;">
-<button type="button" class="btn btn-primary">Accept</button> <br><br>
-<button type="button" class="btn btn-primary">Decline</button> 
+<button type="button" ng-show="appoint.appointment=='Placed'" ng-init='stat="Accepted"' ng-click="updatebookingstatus($index,stat)" class="btn btn-primary">Accept</button> <br><br>
+<button type="button" ng-show="appoint.appointment=='Placed'" ng-init='stat1="Declined"' ng-click="updatebookingstatus($index,stat1)" class="btn btn-primary">Decline</button> 
+<div ng-show="appoint.appointment=='Accepted'"><b>Pay Code :</b><input type="text" ng-model="paycode[$index]" placeholder="Enter Paycode"></input></div>{{paycode}}
+
+<button type="button" ng-show="appoint.appointment=='Accepted'" ng-click="validatepaycode(appoint._id,$index)" class="btn btn-primary">Submit</button>
 </div>
 <div>
 </div>
 
 </div>
-    
