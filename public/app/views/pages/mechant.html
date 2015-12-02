@@ -1,31 +1,56 @@
 <html ng-app="myApp">
 	<head>
 		<title>
-			Merchant
+			Merchant Panel
 		</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'/>
-		<link rel="stylesheet" href="css/style.css" type="text/css"/>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Ubuntu' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
-		<link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css"/>
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css"/>
-		<link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>	
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" href="css/style.css" type="text/css"/>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-route.js">
+	</script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="app/views/js/angular_mainscript.js"></script> 
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Ubuntu' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css"/>
+	<link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>    
 	<script src="app.js"></script>
 	<script type="text/javascript" src="merservice/authservice.js"></script>
 	<link rel="stylesheet" href="merchant.css">		
+	<style>
+	#services .button{
+border:none;
+width:auto;
+padding:15px;
+font-size: 20px;
+background: #980000;
+color:white;
+border-top-left-radius:5px;
+border-top-right-radius:5px;
+}
+.pac-container 
+		{
+		    z-index: 120000000 !important;
+		}
+		.gm-style
+		{
+		    z-index: 1200000000000 !important;	
+		}
+	</style>
 	</head>	
 	<body>
-		<header ng-controller="HeaderCtrl">
-			<div class="top">
-				<div class="logo"><a>Click'n'Book</a></div>
-				<div class="nav1">
+		<header id="header1" ng-controller="HeaderCtrl">
+			<div class="container">
+				<div class="logo"><a href="/">Click'n'Book</a></div>
+				<div class="nav1" >
 					<ul>
 						<li ng-if="merchantloggedin"><a href="#"> Hello Merchant {{merchant.name}}</a></li>
 	                    <li ng-if="merchantloggedin" ng-click="dologout()"><a href="#">Logout</a></li>
@@ -40,14 +65,17 @@
 						<li><a>Basic Settings</a></li>
 					</ul>
 				</div>
-				<div ng-view></div>
+				
 			</div>
 		</header>	
-\
-		<div class="bod">
+		<br/>
+		<div class="container">
+<div ng-view></div>
+</div>
+	<!--	<div class="bod">
 
 
-		</div>
+		</div>-->
 
 		<section id="footer">
 		<div class="container">
@@ -171,11 +199,11 @@
                                <br>
                                 
                                 <div class="form-group">
-									<input type="hidden" class="form-control" id="loc_lng" ng-model="userData.longitude" value=""  required />
+									<input type="text" style="" class="form-control" id="loc_lng" ng-model="userData.longitude" value="" />
 								</div>
 
 								<div class="form-group">
-									<input type="hidden" class="form-control" id="loc_lat" ng-model="userData.latitude" value="" required />
+									<input type="text" style="" class="form-control" id="loc_lat" ng-model="userData.latitude" value="" />
 								</div>
 
                                
@@ -214,14 +242,102 @@
 				
 			</div>
 		</div>
+	
+		<script>
+
+			function initMap() {
+				
+    //alert('dixit');       
+				var map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: -33.8688, lng: 151.2195},
+					zoom: 20
+				});
+				    var input = /** @type {!HTMLInputElement} */(
+					document.getElementById('pac-input'));
+					
+					 google.maps.event.trigger(map, 'resize');
+					var types = document.getElementById('type-selector');
+					//map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+					//map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+					
+					var autocomplete = new google.maps.places.Autocomplete(input);
+					autocomplete.bindTo('bounds', map);
+					
+					var infowindow = new google.maps.InfoWindow();
+					var marker = new google.maps.Marker({
+						map: map,
+						anchorPoint: new google.maps.Point(0, -29)
+					});
+					
+					autocomplete.addListener('place_changed', function() {
+						infowindow.close();
+						marker.setVisible(false);
+						var place = autocomplete.getPlace();
+						if (!place.geometry) {
+							window.alert("Autocomplete's returned place contains no geometry");
+							return;
+						}
+						
+						// If the place has a geometry, then present it on a map.
+						if (place.geometry.viewport) {
+							map.fitBounds(place.geometry.viewport);
+							var placeLoc1 = String(place.geometry.location);
+					
+					     placeLoc1 = placeLoc1.replace('(','');
+					     placeLoc1 = placeLoc1.replace(')', '');
+					     var myarr = placeLoc1.split(',');
+					
+						  var e = document.getElementById("loc_lat");
+						  e.value = myarr[0];
+						  var $e = angular.element(e);
+						  $e.triggerHandler('input');
+
+	                      var e = document.getElementById("loc_lng");
+						  e.value = myarr[1];
+						  var $e = angular.element(e);
+						  $e.triggerHandler('input');
+		
+                          var e = document.getElementById("pac-input");
+						  var $e = angular.element(e);
+						  $e.triggerHandler('input');
+	
+							} else {
+							
+						map.setCenter(place.geometry.location);
+							map.setZoom(15);  // Why 17? Because it looks good.
+						}
+						marker.setIcon(/** @type {google.maps.Icon} */({
+							url: place.icon,
+							size: new google.maps.Size(71, 71),
+							origin: new google.maps.Point(0, 0),
+							anchor: new google.maps.Point(17, 34),
+							scaledSize: new google.maps.Size(35, 35)
+						}));
+						marker.setPosition(place.geometry.location);
+						marker.setVisible(true);
+						
+						var address = '';
+						if (place.address_components) {
+							address = [
+							(place.address_components[0] && place.address_components[0].short_name || ''),
+							(place.address_components[1] && place.address_components[1].short_name || ''),
+							(place.address_components[2] && place.address_components[2].short_name || '')
+							].join(' ');
+						}
+						
+						infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+						infowindow.open(map, marker);
+						});
+ 					}
+			</script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"></script>
+	
 					
 		<script src="app/views/js/index.js"></script>
 	    <script src="app/views/js/bootstrap.js"></script>
 		<script src="app/views/js/bootstrap.min.js"></script>
 		<script src="app/views/js/npm.js"></script>
 		<script src="app/views/js/script.js"></script>
-		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-        <script src="app/views/js/angular_mainscript.js"></script> 
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	</body>

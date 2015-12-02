@@ -83,6 +83,7 @@ $location.path('/home');
 
 $scope.signupuser=function(){
 	$scope.message="";
+	//console.log($scope.userData);
 	user.create($scope.userData)
 	.then(function(response){
 
@@ -98,9 +99,19 @@ $scope.signupuser=function(){
 
 myApp.controller("servicectrl",function($scope,$window,services,$location,$timeout){
 
+var vm=this;
 $scope.createservice=function(){
 $scope.message="";
-services.createservice($scope.serviceData)
+var merid=$window.localStorage.getItem('merchantid');
+
+services.merchantlocationbyid(merid)
+.then(function(response){
+
+	
+console.log(response.data);
+vm.merchantlocation=response.data;
+
+services.createservice($scope.serviceData,vm.merchantlocation)
 .then(function(response){
 
 	$scope.serviceData={};
@@ -109,7 +120,13 @@ services.createservice($scope.serviceData)
 })
 
 
+	//$scope.message=response.data.message;
+	
+});
+
+
 }
+
 
 $scope.updateservice=function(){
 $scope.message="";
@@ -240,6 +257,23 @@ $scope.appoints=response.data;
 	//$scope.message=response.data.message;
 	
 })
+
+
+}
+vm.merchantlocation=[];
+$scope.merchantlocationbyid=function(id){
+$scope.message="";
+services.merchantlocationbyid(id)
+.then(function(response){
+
+	
+console.log(response.data);
+vm.merchantlocation=response.data;
+
+
+	//$scope.message=response.data.message;
+	
+});
 
 
 }

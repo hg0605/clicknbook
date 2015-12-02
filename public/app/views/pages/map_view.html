@@ -15,18 +15,15 @@
 					</ul>
 				</div>
 			<br>
-			
 			</div>
 		</header>		
 
-<div ng-init="abc=result.getUserdetails();result.map(result.getUserdetails().category);" ng-controller="MainController as result" style="background:rgb(138,138,138);">
-<br><br><br><br><br>
-<center><button type="button" ng-click="result.map_view();" class="btn btn-primary">View On Map</button></center>
-<br>
 
-<div id="map" style="display:none; width:100%; height:500px;"></div>
-	<section id="results" ></section>
+<div ng-init="f=result.getUserdetails().category;result.map(result.getUserdetails().category);" ng-controller="MainController as result" style="background:black;">
+<br><br>
+<br><br>
+<center><h1 style="color:white;"> {{f}} Around You</h1></center>
 
-
-<div id="map1" style="display:none;width:100%; height:400px;"></div>
+<div id="map" style="width:100%; height:500px;"></div>
 </div>
+<div id="results" style="display:none;"></div>

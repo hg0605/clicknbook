@@ -1,3 +1,50 @@
+<header id="header1" style="position:fixed; left:0px; top:0px;">
+			<div class="container">
+				<div class="logo" ><a href="/">Click 'n' Book</a></div>
+				<div class="nav1">
+					<ul>
+						<li id="welcome_tab" ng-if="main.loggedin" onmouseleave="close_drop();" onmouseenter="open_drop();" ><a href="#"> Welcome {{ main.user.name }}</a><br></li>
+<ul id="dropdown" style="display:none; position:fixed; width:168px; left:74.1%; top:7.5%;">
+<li><a href="#" ng-click="main.up_profile()">View Profile</a></li>
+</ul>
+
+						
+	                    <li ng-if="main.loggedin"><a href="#" ng-click="main.dologout()">Logout</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#login_modal" ><a> <i class="fa fa-user"></i> LogIn</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#signup_modal" ><a> <i class="fa fa-sign-in"></i> SignUp</a></li>
+					</ul>
+				</div>
+			<br>
+			<div class="nav2">
+				<ul>
+					<li onclick="scroll_about();"><a>About us</a></li>
+					<li onclick="scroll_service();"><a>Our services</a></li>
+					<li onclick="scroll_how();"><a>how we work</a></li>
+					<li onclick="scroll_team();"><a>Our team</a></li>
+				</ul>
+			</div>
+			</div>
+		</header>		
+
+<header id="header2" style="position:fixed; left:0px; top:0px;">
+			<div class="container">
+				<div class="logo" onclick="scroll_top();"><a>Click 'n' Book</a></div>
+				<div class="nav1">
+					<ul>
+						<li onclick="scroll_about();"><a>About us</a></li>
+					<li onclick="scroll_service();"><a>Our services</a></li>
+					<li onclick="scroll_how();"><a>how we work</a></li>
+					<li onclick="scroll_team();"><a>Our team</a></li>
+						<li id="welcome_tab" ng-if="main.loggedin" onmouseleave="close_drop();" onmouseenter="open_drop();" ><a href="#">Welcome {{ main.user.name }}</a></li>
+	                    <li ng-if="main.loggedin"><a href="#" ng-click="main.dologout()">Logout</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#login_modal" ><a> <i class="fa fa-user"></i> LogIn</a></li>
+						<li data-toggle="modal" ng-if="!main.loggedin" data-target="#signup_modal" ><a> <i class="fa fa-sign-in"></i> SignUp</a></li>
+					</ul>
+				</div>
+			</div>
+		</header>		
+
+
 <div id="background-wrap">
 <video id="bgvid" autoplay="autoplay" loop="loop" muted poster="">
 <source src="app/views/images/video.mp4" type="video/mp4" />
@@ -17,9 +64,9 @@
 								<input type="text" name="category" placeholder="Choose any of service" id="category" onfocusout="close_cat_data();" ng-model="main.loginData.category" onclick="validateCategory();" required/>  
 								<div class="category_data">
 									<ul>
-										<li ng-init="harsh1='Plumber'" ng-click="change(harsh1)" ng-model="confirmed">{{harsh1}}</li>
-										<li ng-init="harsh2='Electrician'" ng-click="change(harsh2)" ng-model="confirmed">{{harsh2}}</li>
-										<li ng-init="harsh3='Car-Repair'" ng-click="change(harsh3)" ng-model="confirmed">{{harsh3}}</li>
+										<li ng-init="harsh1='plumber'" ng-click="change(harsh1)" ng-model="confirmed">{{harsh1}}</li>
+										<li ng-init="harsh2='electrician'" ng-click="change(harsh2)" ng-model="confirmed">{{harsh2}}</li>
+										<li ng-init="harsh3='car_repair'" ng-click="change(harsh3)" ng-model="confirmed">{{harsh3}}</li>
 									</ul>
 								</div>
 							</div>
@@ -42,9 +89,9 @@
 							</div>
 						</div>
 						<div class="col-md-2">
-							<input type="hidden" name="loc_lng" id="loc_lng" ng-model="main.loginData.lng" value="27"/> 
-							<input type="hidden" name="loc_lat" id="loc_lat" ng-model="main.loginData.lat" value="88"/> 
-							<input type="hidden" name="loc_address" id="loc_address" ng-model="main.loginData.address" value="JP"/> 
+							<input type="text" style="display:none;" name="loc_lng" id="loc_lng" ng-model="main.loginData.lng" value="27"/> 
+							<input type="text" style="display:none;" name="loc_lat" id="loc_lat" ng-model="main.loginData.lat" value="88"/> 
+							<input type="text" style="display:none;" name="loc_address" id="loc_address" ng-model="main.loginData.address" value="JP"/> 
 							
 							<button type="submit">Search</button>
 						</div>

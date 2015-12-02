@@ -127,4 +127,46 @@ interceptorfactory.responseerror=function(response){
 	return $q.reject(response);
 }
 return interceptorfactory;
-})  ;
+})  
+
+.factory('dataservice',function($q,$window,$http){
+
+var servicefactory={};
+
+servicefactory.servicenearbuy=function(lat,lng){
+	//var merid=$window.localStorage.getItem('merchantid');
+//console.log(merid);
+	return $http.post('/api/servicenearbuy',{
+
+lat:lat,
+lng:lng
+
+
+	});
+}
+servicefactory.createbooking=function(service,btime){
+
+return $http.post('/api/addbooking',{
+
+serviceid : service._id,
+
+
+
+	});
+
+
+
+}
+servicefactory.servicebookingtime=function(id){
+	//var merid=$window.localStorage.getItem('merchantid');
+//console.log(merid);
+	return $http.post('/api/servicebookingtime',{
+
+id : id
+
+
+	});
+}
+
+return servicefactory;
+});

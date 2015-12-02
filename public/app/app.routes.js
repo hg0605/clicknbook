@@ -23,12 +23,17 @@ angular.module('appRoutes',['ngRoute'])
 	})
 .when('/userportal',{
 
-		templateUrl:'app/views/pages/userportal.html'
+		templateUrl:'app/views/pages/dataportal.html'
 	})
 .when('/profile',{
 
 		templateUrl:'app/views/pages/profile.html'
 	})
+.when('/map_view',{
+
+		templateUrl:'app/views/pages/map_view.html'
+	})
+
 $locationProvider.html5Mode(true);
 
 

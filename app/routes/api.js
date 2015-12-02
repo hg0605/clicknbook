@@ -9,7 +9,8 @@ var secretkey= config.secretKey;
 var jsonwebtoken =require('jsonwebtoken');
 var bcrypt=require('bcrypt-nodejs');
 var https=require('https');
-
+var City=require('../models/city');
+var async=require('async');
 function createToken(user){
 
 var token=jsonwebtoken.sign({
@@ -37,6 +38,24 @@ return token;
 module.exports=function(app,express){
 
 var api= express.Router();
+api.post('/cityadd',function(req,res){
+
+var cityModel  = new City(); 
+cityModel.name = req.body.name; 
+cityModel.geo    = [ req.body.lat, req.body.lng ]; 
+
+cityModel.save(function (err) {
+  if (err)
+    res.send(err);
+
+  res.json({
+  	success:true,
+  	message:"City Added"
+  });
+});
+
+
+});
 
 api.post('/signup',function(req,res){
 
@@ -76,8 +95,8 @@ name: req.body.name,
 cost: req.body.cost,
 merchantid: req.body.merchantid,
 starttime: req.body.starttime,
-endtime: req.body.endtime
-
+endtime: req.body.endtime,
+geo :[ req.body.lat, req.body.lng ]
 });
 
 service.save(function(err){
@@ -299,6 +318,65 @@ res.json(service);
 
 
 });
+api.post('/merchantlocationbyid',function(req,res)
+{
+Merchant.findById(req.body.merchantid,function(err,merchant){
+
+if(err)
+{
+
+	res.send(err);
+	return; 
+}
+
+res.json({
+latitude:merchant.latitude,
+longitude:merchant.longitude
+
+});
+});
+
+
+});
+api.post('/merchantnamebyid',function(req,res)
+{
+Merchant.findById(req.body.merchantid,function(err,merchant){
+
+if(err)
+{
+
+	res.send(err);
+	return; 
+}
+
+res.json({
+
+name:merchant.name
+
+});
+});
+
+
+});
+api.post('/locationnearbuy',function(req,res)
+{
+var lat1=req.body.latitude;
+var lat2=lat1+0.2;
+lat1=lat1-0.2;
+Service.find({type: 'food', latitude: { $lt: 9.95 }},function(err,service){
+
+if(err)
+{
+
+	res.send(err);
+	return; 
+}
+
+res.json(service);
+});
+
+
+});
 api.post('/customerbyid',function(req,res)
 {
 User.findById(req.body.id,function(err,user){
@@ -324,7 +402,7 @@ password: bcrypt.hashSync(req.body.password),
 address: req.body.address,
 latitude: req.body.latitude,
 longitude: req.body.longitude,
-placename: req.body.placename,
+placename: req.body.location,
 email: req.body.email,
 gender: req.body.gender,
 wallet:0
@@ -478,7 +556,7 @@ err});
 });
 });
 api.post('/updatemerchants',function(req,res){
-User.findById(req.body.id,function(err,doc){
+Merchant.findById(req.body.id,function(err,doc){
 
 if(!err && doc)
 {
@@ -558,7 +636,7 @@ api.post('/deletemerchants',function(req, res) {
       
   var id = req.body.id;
  if(id){
-  User.findById(id, function(err, doc) {
+  Merchant.findById(id, function(err, doc) {
     if(!err && doc) {
       doc.remove();
       res.json(200, { message: "Merchant removed."});
@@ -630,6 +708,150 @@ res.json({
 
 
 
+});
+api.post('/citynearbuy',function(req,res){
+var distance = 5 / 6371;
+City.find({'geo': {
+  $near: [
+    req.body.lat,
+    req.body.lng
+  ],
+  $maxDistance: distance
+
+  }}).exec(function(err,city){
+
+if(err) throw err;
+else if(city){
+	
+res.json(city);	
+
+
+	}
+	else{
+res.json({
+				
+				message:"no city validated",
+				
+			});
+
+	}
+
+
+
+
+});
+
+
+
+});
+api.post('/servicenearbuy',function(req,res){
+var distance = 1000 / 6371;
+Service.find({'geo': {
+  $near: [
+    req.body.lat,
+    req.body.lng
+  ],
+  $maxDistance: distance
+
+  }}).exec(function(err,city){
+
+if(err) throw err;
+else if(city){
+	
+res.json(city);	
+
+
+	}
+	else{
+res.json({
+				
+				message:"no service validated",
+				
+			});
+
+	}
+});
+});
+api.post('/servicenearbuy',function(req,res){
+var distance = 1000 / 6371;
+Service.find({'geo': {
+  $near: [
+    req.body.lat,
+    req.body.lng
+  ],
+  $maxDistance: distance
+
+  }}).exec(function(err,city){
+
+if(err) throw err;
+else if(city){
+	
+res.json(city);	
+
+
+	}
+	else{
+res.json({
+				
+				message:"no service validated",
+				
+			});
+
+	}
+});
+});
+Object.deepExtend = function(destination, source) {
+  for (var property in source) {
+    if (typeof source[property] === "object" &&
+     source[property] !== null ) {
+      destination[property] = destination[property] || {};
+      arguments.callee(destination[property], source[property]);
+    } else {
+      destination[property] = source[property];
+    }
+  }
+  return destination;
+};
+api.post('/servicebookingtime',function(req,res){
+
+var result=[];
+
+Service.findById(req.body.id,function(err,serv){
+
+if(err) throw err;
+else if(serv){
+	
+	
+	
+	var a=serv.starttime;
+	var b=serv.endtime;	
+
+
+{
+	//console.log(j);
+	Booking.find({serviceid:serv._id},function(err,book){
+		
+	res.json(book);	
+		
+		
+
+	
+	});
+
+}
+
+
+
+	}
+	else{
+res.json({
+				
+				message:"no service validated",
+				
+			});
+
+	}
+});
 });
 api.post('/login',function(req,res){
 

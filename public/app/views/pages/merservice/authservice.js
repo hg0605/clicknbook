@@ -66,7 +66,8 @@ return authtokenfactory;
 var userfactory={};
 
 userfactory.create=function(userData){
-	return $http.post('/api/signup',userData);
+	console.log(userData);
+	return $http.post('/api/signupmerchant',userData);
 }
 return userfactory;
 })
@@ -100,14 +101,17 @@ return interceptorfactory;
 var servicefactory={};
 var merid=$window.localStorage.getItem('merchantid');
 console.log(merid);
-servicefactory.createservice=function(serviceData){
+servicefactory.createservice=function(serviceData,location){
+	console.log("create"+location);
 	return $http.post('/api/addservice',{
 
 merchantid:merid,
 name:serviceData.name,
 cost:serviceData.cost,
 starttime:serviceData.starttime,
-endtime:serviceData.endtime
+endtime:serviceData.endtime,
+lat:location.latitude,
+lng:location.longitude
 
 
 	});
@@ -178,7 +182,15 @@ id:id
 
 	});
 }
+servicefactory.merchantlocationbyid=function(id){
 
+return $http.post('/api/merchantlocationbyid',{
+
+merchantid:id	
+});
+
+
+}
 servicefactory.deleteservicebyid=function(id){
 	//var merid=$window.localStorage.getItem('merchantid');
 //console.log(merid);

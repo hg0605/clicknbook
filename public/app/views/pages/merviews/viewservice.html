@@ -1,11 +1,12 @@
+<div id="services">
+        <center>
+
+<a href="#/service"><button class="button" target="edit_profile">Adding Services</button></a>
+<a href="#/viewservice"><button class="button" target="bookings">Manage Services</button>
+</a></center>
+</div>
+
 <div ng-controller="servicectrl" >
-<div class="nav2">
-					<ul>
-						<li><a href="#/service">Adding Services</a></li>
-						<li><a href="#/viewservice">Manage Services</a></li>
-						
-					</ul>
-				</div>
 <div class="container" id="services_view" ng-init="init()">
 <center><h2>View Services</h2></center>
 <div class="row" ng-repeat="service in services">
